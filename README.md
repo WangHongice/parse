@@ -1,9 +1,9 @@
 # Videoparse短视频解析接口文档
 
-## Videoparse(https://www.videoparse.cn) 短视频解析接口已支持：抖音、快手、剪映、小红书、Tiktok、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、微视、火山小视频、皮皮虾、好看视频、绿洲、VUE、秒拍、梨视频、刷宝、全民小视频、陌陌视频、UC浏览器、Youtube、轻视频、Bilibili、茄子短视频、灵感、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、AcFun、网易云音乐、咪咕圈圈、梨涡、小影、新片场、场库、阳光宽频网等超过40个平台的短视频去水印解析。
+## Videoparse(https://www.videoparse.cn) 短视频解析接口已支持：抖音、快手、剪映、小红书、Tiktok、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、快影、微视、火山小视频、皮皮虾、好看视频、绿洲、VUE、秒拍、梨视频、刷宝、全民小视频、陌陌视频、UC浏览器、Youtube、轻视频、Bilibili、茄子短视频、灵感、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、AcFun、网易云音乐、咪咕圈圈、梨涡、小影、新片场、场库、阳光宽频网等超过40个平台的短视频去水印解析。
 
 
-### 一. 解析短视频接口
+### 一. 短视频去水印解析接口
 **请求地址：https://api-sv.videoparse.cn/api/video/normalParse**  
 **请求方式：GET/POST**  
 **请求参数：**  
@@ -12,7 +12,7 @@
 |---|---|---|---|---|  
 | appid | string | Y | appid |开发者后台生成的appid|
 | appsecret | string | Y | appsecret |开发者后台生成的appsecret|
-| url | string | Y | 要解析的短视频地址 |
+| url | string | Y | 要解析的短视频地址 ||
 
 **返回结果：**  
 
@@ -32,13 +32,15 @@
 |code|错误码|错误码:请参考错误码说明|
 |msg|错误信息|错误码:请参考错误码说明|
 |body|||
-|source|解析视频来源|如：douyin、kuaishou|
+|source|解析视频来源，如：douyin、kuaishou|[点击查看全部平台信息](https://www.videoparse.cn/source)|
 |url|开发者请求的url||
 |title|短视频标题||
 |cover_url|短视频封面||
 |video_url|无水印的视频地址|此地址有有效期限制，不可作为永久存储|
 
 PHP EXAMPLE：
+
+PHP file\_get\_contents:
 	
 	//开发者后台生成的appid
 	$appId = '';
@@ -55,10 +57,45 @@ PHP EXAMPLE：
 		'url'		=> $url,
 	];
 	
-	//得到请求的地址：https://api-sv.videoparse.cn/api/video/normalParse?appid=2m3Ju99MPXrNtkgH&appsecret=bNG3JYjT83qp4cib&url=http%3A%2F%2Fv.douyin.com%2Fa2X5ab%2F
+	//得到请求的地址：https://api-sv.videoparse.cn/api/video/normalParse?appid=&appsecret=&url=http%3A%2F%2Fv.douyin.com%2Fa2X5ab%2F
 	$apiUrl = 'https://api-sv.videoparse.cn/api/video/normalParse?'.http_build_query($param);
 	$videoInfo = file_get_contents($apiUrl);
 	print_r($videoInfo);
+
+
+PHP curl为例：
+	
+	//开发者后台生成的appid
+	$appId = '';
+	
+	//开发者后台生成的appsecret
+	$appSecret = '';
+	
+	//需要解析的url
+	$url = '';
+	
+	$param = [
+		'appid'		=> $appId,
+		'appsecret'	=> $appSecret,
+		'url'		=> $url,
+	];
+	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/video/normalParse?appid=appid&appsecret=appsecret&url=编码后的url
+	$apiUrl = 'https://api-sv.videoparse.cn/api/video/normalParse?'.http_build_query($param);
+	
+	$ch = curl_init();
+	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+	curl_setopt ( $ch, CURLOPT_MAXREDIRS, 5 );
+	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+	curl_setopt ( $ch, CURLOPT_TIMEOUT, 10 );
+	$content = curl_exec( $ch );
+	curl_close ( $ch);
+	
+	print_r($content);
+
 
 Python实例代码:
 
@@ -111,8 +148,8 @@ Python实例代码:
 	#print(post("https://v.douyin.com/JJTDEKL/"))
 
 
-### 二. 解析短视频接口 - 安全版
-**请求地址：https://api-sv.videoparse.cn/api/video/parse**  
+### 二. 短视频去水印解析接口 - 安全版
+**URL：https://api-sv.videoparse.cn/api/video/parse**  
 **请求方式：GET/POST**  
 **请求参数：**  
 
@@ -180,7 +217,7 @@ Python实例代码:
 |code|错误码|错误码:请参考错误码说明|
 |msg|错误信息|错误码:请参考错误码说明|
 |body|||
-|source|解析视频来源|如：douyin、kuaishou|
+|source|解析视频来源，如：douyin、kuaishou|[点击查看全部平台信息](https://www.videoparse.cn/source)|
 |url|开发者请求的url||
 |title|短视频标题||
 |cover_url|短视频封面||
@@ -242,8 +279,246 @@ PHP EXAMPLE：
 	$videoInfo = curlPost($apiUrl, $param);
 	print_r($videoInfo);
 
-### 三. 获取开发者信息接口
-**请求地址：https://api-sv.videoparse.cn/api/user/getInfo**  
+
+### 三. 获取短视频平台作者信息接口：根据用户ID(目前仅支持抖音)
+**请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber**  
+**请求方式：GET/POST**  
+**请求参数：**  
+
+|字段|类型|必填|备注|赋值|
+|---|---|---|---|---|  
+| appid | string | Y | appid |开发者后台生成的appid|
+| appsecret | string | Y | appsecret |开发者后台生成的appsecret|
+| number | string | Y | 用户ID（目前仅支持抖音号） ||
+
+**返回结果：**  
+
+**成功：**  
+
+	{"code":0,"msg":"success","body":{"number":"kanzhengzhou","platform":"douyin","author":{"uid":"56009474501","name":"看郑州","number":"kanzhengzhou","avatar":"https://p6-dy-ipv6.byteimg.com/aweme/1080x1080/2f96500065722b0ab49e2.jpeg?from=4010531038","desc":"看郑州，观天下！","follower":360000,"focus":61}}}
+	
+  
+**失败：**	
+
+	{"code":10001,"msg":"parameter lost","body":[]}
+
+**返回字段注释** 
+
+|字段名|注释|备注|
+|---|---|---|
+|code|错误码|错误码:请参考错误码说明|
+|msg|错误信息|错误码:请参考错误码说明|
+|body|||
+|uid|作者uid||
+|name|昵称||
+|number|抖音号||
+|avatar|头像|
+|desc|简介||
+|follower|粉丝数||
+|focus|关注数||
+
+PHP EXAMPLE：
+
+PHP file\_get\_contents:
+	
+	//开发者后台生成的appid
+	$appId = '';
+	
+	//开发者后台生成的appsecret
+	$appSecret = '';
+	
+	//需要解析的短视频平台作者ID
+	$number = '';
+	
+	$param = [
+		'appid'		=> $appId,
+		'appsecret'	=> $appSecret,
+		'number'	=> $number,
+	];
+	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?appid=&appsecret=&number=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?'.http_build_query($param);
+	$videoInfo = file_get_contents($apiUrl);
+	print_r($videoInfo);
+
+
+PHP curl为例：
+	
+	//开发者后台生成的appid
+	$appId = '';
+	
+	//开发者后台生成的appsecret
+	$appSecret = '';
+	
+	//需要解析的短视频平台作者ID
+	$number = '';
+	
+	$param = [
+		'appid'		=> $appId,
+		'appsecret'	=> $appSecret,
+		'number'	=> $number,
+	];
+	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?appid=&appsecret=&number=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?'.http_build_query($param);
+	
+	$ch = curl_init();
+	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+	curl_setopt ( $ch, CURLOPT_MAXREDIRS, 5 );
+	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+	curl_setopt ( $ch, CURLOPT_TIMEOUT, 10 );
+	$content = curl_exec( $ch );
+	curl_close ( $ch);
+	
+	print_r($content);
+
+
+### 四. 获取作者信息接口：根据作者分享页url(目前仅支持抖音)
+**请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo**  
+**请求方式：GET/POST**  
+**请求参数：**  
+
+|字段|类型|必填|备注|赋值|
+|---|---|---|---|---|  
+| appid | string | Y | appid |开发者后台生成的appid|
+| appsecret | string | Y | appsecret |开发者后台生成的appsecret|
+| url | string | Y | 作者分享页url(目前仅支持抖音) |
+
+**返回结果：**  
+
+**成功：**  
+
+	{"code":0,"msg":"success","body":{"number":"kanzhengzhou","platform":"douyin","author":{"uid":"56009474501","name":"看郑州","number":"kanzhengzhou","avatar":"https://p6-dy-ipv6.byteimg.com/aweme/1080x1080/2f96500065722b0ab49e2.jpeg?from=4010531038","desc":"看郑州，观天下！","follower":360000,"focus":61}}}
+	
+  
+**失败：**	
+
+	{"code":10001,"msg":"parameter lost","body":[]}
+
+**返回字段注释** 
+
+|字段名|注释|备注|
+|---|---|---|
+|code|错误码|错误码:请参考错误码说明|
+|msg|错误信息|错误码:请参考错误码说明|
+|body|||
+|uid|作者uid||
+|name|昵称||
+|number|抖音号||
+|avatar|头像|
+|desc|简介||
+|follower|粉丝数||
+|focus|关注数||
+
+PHP EXAMPLE：
+
+PHP file\_get\_contents:
+	
+	//开发者后台生成的appid
+	$appId = '';
+	
+	//开发者后台生成的appsecret
+	$appSecret = '';
+	
+	//需要解析的短视频平台作者分享页url
+	$url= '';
+	
+	$param = [
+		'appid'		=> $appId,
+		'appsecret'	=> $appSecret,
+		'url'		=> $url,
+	];
+	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo?appid=&appsecret=&url=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfo?'.http_build_query($param);
+	$videoInfo = file_get_contents($apiUrl);
+	print_r($videoInfo);
+
+
+PHP curl为例：
+	
+	//开发者后台生成的appid
+	$appId = '';
+	
+	//开发者后台生成的appsecret
+	$appSecret = '';
+	
+	//需要解析的短视频平台作者分享页url
+	$url= '';
+	
+	$param = [
+		'appid'		=> $appId,
+		'appsecret'	=> $appSecret,
+		'url'		=> $url,
+	];
+	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo?appid=&appsecret=&url=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfo?'.http_build_query($param);
+	
+	$ch = curl_init();
+	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
+	curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
+	curl_setopt ( $ch, CURLOPT_MAXREDIRS, 5 );
+	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+	curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, 1 );
+	curl_setopt ( $ch, CURLOPT_TIMEOUT, 10 );
+	$content = curl_exec( $ch );
+	curl_close ( $ch);
+	
+	print_r($content);
+
+
+
+### 五. 获取作者作品列表(目前仅支持抖音)
+**请求地址：https://api-sv.videoparse.cn/api/batch/getList**  
+**请求方式：GET/POST**  
+**请求参数：**  
+
+|字段|类型|必填|备注|赋值|
+|---|---|---|---|---|  
+| appid | string | Y | appid |开发者后台生成的appid|
+| appsecret | string | Y | appsecret |开发者后台生成的appsecret|
+| uid | string | Y | 作者uid(作者信息接口中返回) |
+| platform | string | Y | 平台信息(作者信息接口中有返回) |
+| cursor | string | N |上一次调用此接口中返回的"next_cursor"|
+
+**返回结果：**  
+
+**成功：**  
+
+	{"code":0,"msg":"success","body":{"uid":"56009474501","platform":"douyin","page":{"current_cursor":"","next_cursor":1601703325000,"has_more":true},"list":[{"video_info":{"desc":"豪华婚礼现天价陪嫁礼单：现金280多万加创业基金2000多万，外加豪车、房产…数学好的可以算一下总价值！","url":"https://www.iesdouyin.com/share/video/6879811223831989517/","cover":"https://p3-dy-ipv6.byteimg.com/img/tos-cn-p-0015/e932dc887539471cb745f712aada2176_1601830891~c5_300x400.jpeg?from=2563711402_large"},"like_count":5956,"comment_count":25}]}}
+	
+  
+**失败：**	
+
+	{"code":10001,"msg":"parameter lost","body":[]}
+
+**返回字段注释** 
+
+|字段名|注释|备注|
+|---|---|---|
+|code|错误码|错误码:请参考错误码说明|
+|msg|错误信息|错误码:请参考错误码说明|
+|body|||
+|desc|作品视频简介||
+|url|视频网页地址||
+| cover |作品视频封面||
+| like_count |点赞数||
+| next_cursor |翻页请求游标||
+| has_more |是否有更多|true标识有更多，需要翻页请求，false标识无|
+
+**接入注意点** 
+
+	这里需要说明的是：
+	1、返回的作品列表中视频url为有水印的视频网页访问地址，如需获取无水印的视频原始信息，请将当前获取的视频地址作为参数调用去水印解析接口
+	2、当"page"下的"has_more"为"true"时，则表示下面还有内容，所需翻页获取，请将"next_cursor"作为参数"cursor",再次调用当前接口(获取作者作品列表)
+
+### 六. 获取开发者信息接口
+**URL：https://api-sv.videoparse.cn/api/user/getInfo**  
 **请求方式：GET/POST**  
 **请求参数：**  
 
