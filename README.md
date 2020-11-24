@@ -1,6 +1,6 @@
 # Videoparse短视频解析接口文档
 
-## Videoparse(https://www.videoparse.cn) 短视频解析接口已支持：抖音、快手、剪映、小红书、Tiktok、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、快影、微视、火山小视频、皮皮虾、好看视频、绿洲、VUE、秒拍、梨视频、刷宝、全民小视频、陌陌视频、UC浏览器、Youtube、轻视频、Bilibili、茄子短视频、灵感、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、AcFun、网易云音乐、咪咕圈圈、梨涡、小影、新片场、场库、阳光宽频网等超过40个平台的短视频去水印解析。
+## Videoparse(https://www.videoparse.cn) 短视频解析接口已支持：抖音、快手、剪映、小红书、Tiktok、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、快影、微视、火山小视频、皮皮虾、好看视频、绿洲、VUE、秒拍、梨视频、刷宝、全民小视频、陌陌视频、UC浏览器、Youtube、轻视频、Bilibili、茄子短视频、灵感、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、AcFun、网易云音乐、咪咕圈圈、Keep、梨涡、小影、新片场、场库、阳光宽频网、比心、逗拍等超过50个平台的短视频去水印解析。
 
 
 ### 一. 短视频去水印解析接口
@@ -280,103 +280,7 @@ PHP EXAMPLE：
 	print_r($videoInfo);
 
 
-### 三. 获取短视频平台作者信息接口：根据用户ID(目前仅支持抖音)
-**请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber**  
-**请求方式：GET/POST**  
-**请求参数：**  
-
-|字段|类型|必填|备注|赋值|
-|---|---|---|---|---|  
-| appid | string | Y | appid |开发者后台生成的appid|
-| appsecret | string | Y | appsecret |开发者后台生成的appsecret|
-| number | string | Y | 用户ID（目前仅支持抖音号） ||
-
-**返回结果：**  
-
-**成功：**  
-
-	{"code":0,"msg":"success","body":{"number":"kanzhengzhou","platform":"douyin","author":{"uid":"56009474501","name":"看郑州","number":"kanzhengzhou","avatar":"https://p6-dy-ipv6.byteimg.com/aweme/1080x1080/2f96500065722b0ab49e2.jpeg?from=4010531038","desc":"看郑州，观天下！","follower":360000,"focus":61}}}
-	
-  
-**失败：**	
-
-	{"code":10001,"msg":"parameter lost","body":[]}
-
-**返回字段注释** 
-
-|字段名|注释|备注|
-|---|---|---|
-|code|错误码|错误码:请参考错误码说明|
-|msg|错误信息|错误码:请参考错误码说明|
-|body|||
-|uid|作者uid||
-|name|昵称||
-|number|抖音号||
-|avatar|头像|
-|desc|简介||
-|follower|粉丝数||
-|focus|关注数||
-
-PHP EXAMPLE：
-
-PHP file\_get\_contents:
-	
-	//开发者后台生成的appid
-	$appId = '';
-	
-	//开发者后台生成的appsecret
-	$appSecret = '';
-	
-	//需要解析的短视频平台作者ID
-	$number = '';
-	
-	$param = [
-		'appid'		=> $appId,
-		'appsecret'	=> $appSecret,
-		'number'	=> $number,
-	];
-	
-	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?appid=&appsecret=&number=
-	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?'.http_build_query($param);
-	$videoInfo = file_get_contents($apiUrl);
-	print_r($videoInfo);
-
-
-PHP curl为例：
-	
-	//开发者后台生成的appid
-	$appId = '';
-	
-	//开发者后台生成的appsecret
-	$appSecret = '';
-	
-	//需要解析的短视频平台作者ID
-	$number = '';
-	
-	$param = [
-		'appid'		=> $appId,
-		'appsecret'	=> $appSecret,
-		'number'	=> $number,
-	];
-	
-	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?appid=&appsecret=&number=
-	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfoByNumber?'.http_build_query($param);
-	
-	$ch = curl_init();
-	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
-	curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
-	curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, 0 );
-	curl_setopt ( $ch, CURLOPT_MAXREDIRS, 5 );
-	curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
-	curl_setopt ( $ch, CURLOPT_FOLLOWLOCATION, 1 );
-	curl_setopt ( $ch, CURLOPT_TIMEOUT, 10 );
-	$content = curl_exec( $ch );
-	curl_close ( $ch);
-	
-	print_r($content);
-
-
-### 四. 获取作者信息接口：根据作者分享页url(目前仅支持抖音)
+### 三. 获取作者信息接口：根据作者分享页url(目前支持抖音、西瓜视频)
 **请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo**  
 **请求方式：GET/POST**  
 **请求参数：**  
@@ -385,7 +289,7 @@ PHP curl为例：
 |---|---|---|---|---|  
 | appid | string | Y | appid |开发者后台生成的appid|
 | appsecret | string | Y | appsecret |开发者后台生成的appsecret|
-| url | string | Y | 作者分享页url(目前仅支持抖音) |
+| url | string | Y | 作者分享页url(目前支持抖音、西瓜视频) |
 
 **返回结果：**  
 
@@ -473,7 +377,7 @@ PHP curl为例：
 
 
 
-### 五. 获取作者作品列表(目前仅支持抖音)
+### 四. 获取作者作品列表(目前支持抖音、西瓜视频)
 **请求地址：https://api-sv.videoparse.cn/api/batch/getList**  
 **请求方式：GET/POST**  
 **请求参数：**  
@@ -517,7 +421,7 @@ PHP curl为例：
 	1、返回的作品列表中视频url为有水印的视频网页访问地址，如需获取无水印的视频原始信息，请将当前获取的视频地址作为参数调用去水印解析接口
 	2、当"page"下的"has_more"为"true"时，则表示下面还有内容，所需翻页获取，请将"next_cursor"作为参数"cursor",再次调用当前接口(获取作者作品列表)
 
-### 六. 获取开发者信息接口
+### 五. 获取开发者信息接口
 **URL：https://api-sv.videoparse.cn/api/user/getInfo**  
 **请求方式：GET/POST**  
 **请求参数：**  
