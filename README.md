@@ -280,7 +280,7 @@ PHP EXAMPLE：
 	print_r($videoInfo);
 
 
-### 三. 获取作者信息接口：根据作者分享页url(目前支持抖音、西瓜视频)
+### 三. 获取作者信息接口：根据作者分享页url(支持抖音、西瓜视频、微视、抖音火山版、美拍、火锅视频、好看视频、UC浏览器等)
 **请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo**  
 **请求方式：GET/POST**  
 **请求参数：**  
@@ -289,7 +289,7 @@ PHP EXAMPLE：
 |---|---|---|---|---|  
 | appid | string | Y | appid |开发者后台生成的appid|
 | appsecret | string | Y | appsecret |开发者后台生成的appsecret|
-| url | string | Y | 作者分享页url(目前支持抖音、西瓜视频) |
+| url | string | Y | 作者分享页url |
 
 **返回结果：**  
 
@@ -377,7 +377,7 @@ PHP curl为例：
 
 
 
-### 四. 获取作者作品列表(目前支持抖音、西瓜视频)
+### 四. 获取作者作品列表(目前支持抖音、西瓜视频、微视、抖音火山版、美拍、火锅视频、好看视频、UC浏览器等)
 **请求地址：https://api-sv.videoparse.cn/api/batch/getList**  
 **请求方式：GET/POST**  
 **请求参数：**  
