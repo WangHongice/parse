@@ -4,8 +4,8 @@
  */
  
 //	www.videoparse.cn开发者后台获得
-$appid 		= '2m3Ju99MPXrNtkgH';
-$appsecret	= 'omVb2P23EOwh3pam';
+$appid 		= '';
+$appsecret	= '';
 
 //	要获取的作者主页地址
 $url = 'https://v.ixigua.com/JXVC7dk/';
