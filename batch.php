@@ -17,7 +17,7 @@ $param	= [
 	'url'		=> $url,
 ];
 
-$authorApi = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfo';
+$authorApi = 'https://api-sv.videoparse.cn/api/customparse/getAuthorInfo';
 $authorRes = curlPost($authorApi, $param);
 
 $authorInfo = json_decode($authorRes, true);
@@ -32,7 +32,7 @@ $param	= [
 	'cursor'	=> '',
 ];
 
-$listApi = 'https://api-sv.videoparse.cn/api/batch/getList';
+$listApi = 'https://api-sv.videoparse.cn/api/customparse/getList';
 $videoListRes = curlPost($listApi, $param);
 
 print_r($videoListRes);
