@@ -283,7 +283,7 @@ PHP EXAMPLE：
 ### 三. 获取作者信息接口：根据作者分享页url
 **支持平台：抖音、快手、西瓜视频、微视、全民小视频、抖音火山版、美拍、火锅视频、好看视频、UC浏览器等**  
 
-**请求地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo**  
+**请求地址：https://api-sv.videoparse.cn/api/customparse/getAuthorInfo**  
 **请求方式：GET/POST**  
 **请求参数：**  
 
@@ -297,7 +297,7 @@ PHP EXAMPLE：
 
 **成功：**  
 
-	{"code":0,"msg":"success","body":{"number":"kanzhengzhou","platform":"douyin","author":{"uid":"56009474501","name":"看郑州","number":"kanzhengzhou","avatar":"https://p6-dy-ipv6.byteimg.com/aweme/1080x1080/2f96500065722b0ab49e2.jpeg?from=4010531038","desc":"看郑州，观天下！","follower":360000,"focus":61}}}
+	{"code":0,"msg":"success","body":{"url":"https://v.douyin.com/J75cmQq/","platform":"douyin","author":{"uid":"66402061517---MS4wLjABAAAAcaWN_3-uvQOF1w13i1pQ4-iGSapsGqvtjNodeFEM3wU","short_id":"1877544343","name":"储殷教授","number":"","avatar":"https://p3.douyinpic.com/aweme/1080x1080/fb6e00060ad344e04c9c.jpeg?from=4010531038","desc":"大学教授\n《我是演说家》冠军\n奇葩说辩手\n合作vx： lynn399181\n每天中午/晚上不定期直播","follower":1970000,"focus":522,"likes":17366000,"works":241}}}
 	
   
 **失败：**	
@@ -318,6 +318,8 @@ PHP EXAMPLE：
 |desc|简介||
 |follower|粉丝数||
 |focus|关注数||
+|likes|点赞数||
+|works|作品数||
 
 PHP EXAMPLE：
 
@@ -338,8 +340,8 @@ PHP file\_get\_contents:
 		'url'		=> $url,
 	];
 	
-	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo?appid=&appsecret=&url=
-	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfo?'.http_build_query($param);
+	//得到请求的地址：https://api-sv.videoparse.cn/api/customparse/getAuthorInfo?appid=&appsecret=&url=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/customparse/getAuthorInfo?'.http_build_query($param);
 	$videoInfo = file_get_contents($apiUrl);
 	print_r($videoInfo);
 
@@ -361,9 +363,9 @@ PHP curl为例：
 		'url'		=> $url,
 	];
 	
-	//得到请求的地址：https://api-sv.videoparse.cn/api/batch/getAuthorInfo?appid=&appsecret=&url=
-	$apiUrl = 'https://api-sv.videoparse.cn/api/batch/getAuthorInfo?'.http_build_query($param);
-	
+	//得到请求的地址：https://api-sv.videoparse.cn/api/customparse/getAuthorInfo?appid=&appsecret=&url=
+	$apiUrl = 'https://api-sv.videoparse.cn/api/customparse/getAuthorInfo?'.http_build_query($param);
+
 	$ch = curl_init();
 	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
 	curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, 0 );
@@ -374,7 +376,6 @@ PHP curl为例：
 	curl_setopt ( $ch, CURLOPT_TIMEOUT, 10 );
 	$content = curl_exec( $ch );
 	curl_close ( $ch);
-	
 	print_r($content);
 
 
@@ -382,7 +383,7 @@ PHP curl为例：
 ### 四. 获取作者作品列表
 **支持平台：抖音、快手、西瓜视频、微视、全民小视频、抖音火山版、美拍、火锅视频、好看视频、UC浏览器等**  
 
-**请求地址：https://api-sv.videoparse.cn/api/batch/getList**  
+**请求地址：https://api-sv.videoparse.cn/api/customparse/getList**  
 **请求方式：GET/POST**  
 **请求参数：**  
 
@@ -398,7 +399,7 @@ PHP curl为例：
 
 **成功：**  
 
-	{"code":0,"msg":"success","body":{"uid":"56009474501","platform":"douyin","page":{"current_cursor":"","next_cursor":1601703325000,"has_more":true},"list":[{"video_info":{"desc":"豪华婚礼现天价陪嫁礼单：现金280多万加创业基金2000多万，外加豪车、房产…数学好的可以算一下总价值！","url":"https://www.iesdouyin.com/share/video/6879811223831989517/","cover":"https://p3-dy-ipv6.byteimg.com/img/tos-cn-p-0015/e932dc887539471cb745f712aada2176_1601830891~c5_300x400.jpeg?from=2563711402_large"},"like_count":5956,"comment_count":25}]}}
+	{"code":0,"msg":"success","body":{"uid":"66402061517","platform":"douyin","page":{"current_cursor":"","next_cursor":1610861832000,"has_more":true},"list":[{"vid":"v0d00f290000c09ltb8eoev7k6qh9mpg","aweme_id":"6922981261740969216","video_info":{"desc":"#道德绑架 #道德绑架的话怼回去 拒绝道德绑架一旦滥用 就是变成人渣的开始","cover":"https://p29.douyinpic.com/img/tos-cn-p-0015/53275dd8b24a4822bd414ec391b326bb~c5.jpeg?from=2563711402_large","video_url":"http://v29.douyinvod.com/9083a794108e7f99b48c92aa5ed0cb45/6013d77e/video/tos/cn/tos-cn-ve-15/13e31ae621324afc80b169d378aa2233/?a=1128&br=4029&bt=1343&cd=0|0|0&ch=96&cr=0&cs=0&cv=1&dr=0&ds=3&er=&l=202101291637000102020492264B00638D&lr=all&mime_type=video_mp4&pl=0&qs=0&rc=anBrOTpoaGVvMzMzPGkzM0ApZzpkaWY7O2RmN2g6aDs2NWcpaGxuZDFwekBtNm5oc2w1cTZgLS0vLWFzc2A0NC8xL14wMC1hNC80XjY6Y2pxK2BtYmJeYA==&vl=&vr="},"share_url":"https://www.iesdouyin.com/share/video/6922981261740969216/","duration":66,"create_time":1611882234,"like_count":1994,"comment_count":207,"share_count":35,"to_parse":0}]}}
 	
   
 **失败：**	
@@ -413,16 +414,19 @@ PHP curl为例：
 |msg|错误信息|错误码:请参考错误码说明|
 |body|||
 |desc|作品视频简介||
-|url|视频网页地址||
+|video_url|无水印地址||
 | cover |作品视频封面||
+| duration |视频时长：秒||
 | like_count |点赞数||
+| share_count |分享数||
+| to_parse |是否需要二次解析：为0时，不需要，为1时，需要||
 | next_cursor |翻页请求游标||
 | has_more |是否有更多|true标识有更多，需要翻页请求，false标识无|
 
 **接入注意点** 
 
 	这里需要说明的是：
-	1、返回的作品列表中视频url为有水印的视频网页访问地址，如需获取无水印的视频原始信息，请将当前获取的视频地址作为参数调用去水印解析接口
+	1、返回的作品列表中“video_url”为无水印的视频地址，如返回“video_url”为空，如需获取无水印的视频信息，请将"share_url"为参数调用去水印解析接口
 	2、当"page"下的"has_more"为"true"时，则表示下面还有内容，所需翻页获取，请将"next_cursor"作为参数"cursor",再次调用当前接口(获取作者作品列表)
 
 ### 五. 获取开发者信息接口
