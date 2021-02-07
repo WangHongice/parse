@@ -14,7 +14,7 @@ params = {
 
 def get(url):
     params["url"] = url;
-    api_url = "https://api-sv.videoparse.cn/api/video/normalParse?" + urllib.parse.urlencode(params)
+    api_url = "https://api-sv.videoparse.cn/api/customparse/parse?" + urllib.parse.urlencode(params)
     
     msg = {"code": 0, "msg": "", "body": ""}
     
@@ -32,7 +32,7 @@ def get(url):
 
 def post(url):
     params["url"] = url
-    api_url = "https://api-sv.videoparse.cn/api/video/normalParse"
+    api_url = "https://api-sv.videoparse.cn/api/customparse/parse"
     
     msg = {"code": 0, "msg": "", "body": ""}
     
