@@ -2,9 +2,10 @@
 /**
  * 
  * Videoparse(https://www.videoparse.cn)
- * 支持：抖音、快手、剪映、小红书、Tiktok(抖音国际版)、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、微视、火山小视频、皮皮虾、好看视频、
- * 绿洲、VUE、秒拍、梨视频、刷宝短视频、全民小视频、陌陌视频、UC浏览器、Bilibili、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、小影、新片场、场库、
- * 阳光宽频网等超过30个平台的短视频去水印解析等平台的短视频去水印解析API接口
+ *支持：抖音、快手、剪映、小红书、Tiktok、微博、QQ看点视频、西瓜视频、今日头条、趣头条、火锅视频、美拍、快影、
+ * 微视、火山小视频、皮皮虾、好看视频、绿洲、VUE、秒拍、梨视频、刷宝、全民小视频、陌陌视频、UC浏览器、Youtube、
+ * 轻视频、Bilibili、茄子短视频、灵感、WIDE、开眼、全民K歌、最右、小咖秀、皮皮搞笑、AcFun、网易云音乐、咪咕圈圈、Keep、梨涡、
+ * 小影、新片场、场库、阳光宽频网、比心、逗拍等超过50个平台的短视频去水印解析
  *
  * 解析短视频接口 - 安全版
  */
@@ -32,7 +33,7 @@ function sign($appId, $appSecret, $url, $timestamp) {
 		'timestamp'	=> $timestamp,
 	];
 	ksort($param);
-	return substr(md5(substr(md5(http_build_query($param)), 6, 18) . $appSecret), 10, 16);
+	return substr(md5(substr(md5(urldecode(http_build_query($param))), 6, 18) . $appSecret), 10, 16);
 }
 
 //开发者后台生成的appid
@@ -58,6 +59,6 @@ $param = [
 	'sign'		=> $sign,
 ];
 
-$apiUrl = 'https://api-sv.videoparse.cn/api/video/parse';
+$apiUrl = 'https://api-sv.videoparse.cn/api/safeparse/parse';
 $videoInfo = curlPost($apiUrl, $param);
 print_r($videoInfo);
