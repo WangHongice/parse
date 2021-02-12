@@ -61,7 +61,7 @@ PHP file\_get\_contents:
 	];
 	
 	//得到请求的地址：https://api-sv.videoparse.cn/api/customparse/parse?appid=&appsecret=&url=http%3A%2F%2Fv.douyin.com%2Fa2X5ab%2F
-	$apiUrl = 'https://api-sv.videoparse.cn/api/video/normalParse?'.http_build_query($param);
+	$apiUrl = 'https://api-sv.videoparse.cn/api/customparse/parse?'.http_build_query($param);
 	$videoInfo = file_get_contents($apiUrl);
 	print_r($videoInfo);
 
@@ -84,7 +84,7 @@ PHP curl为例：
 	];
 	
 	//得到请求的地址：https://api-sv.videoparse.cn/api/customparse/parse?appid=appid&appsecret=appsecret&url=编码后的url
-	$apiUrl = 'https://api-sv.videoparse.cn/api/video/normalParse?'.http_build_query($param);
+	$apiUrl = 'https://api-sv.videoparse.cn/api/customparse/parse?'.http_build_query($param);
 	
 	$ch = curl_init();
 	curl_setopt ( $ch, CURLOPT_URL, $apiUrl );
